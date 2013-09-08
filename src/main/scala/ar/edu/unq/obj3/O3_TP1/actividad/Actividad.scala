@@ -14,7 +14,8 @@ abstract class Actividad( val nombre : String,
 	var fechaAprobacion : Date = null
 	var integrantes : Set[Persona] = Set()
 
-	integrantes.+=( responsable ).++=( otros )
+	integrantes += responsable
+	integrantes ++= otros
 
 	def agregarEnAgenda( agenda : Agenda ) : Agenda
 
@@ -51,7 +52,7 @@ case class Proyecto( override val nombre : String, override val costo : Int, ove
 	}
 
 	def agregarArticulos( m : Map[String, Date] ) : Map[String, Date] = {
-		articulos.foldRight( m )( ( a, m ) => m.+=( a ) )
+		articulos.foldRight( m )( ( a, m ) => { m += a; m } )
 	}
 	def agregarResultado( descripcion : String, fecha : Date ) {
 		resultados += ( ( descripcion, fecha ) )

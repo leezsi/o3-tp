@@ -5,22 +5,19 @@ import scala.collection.mutable.Map
 import ar.edu.unq.obj3.O3_TP1.materia.curso.Cursada
 import ar.edu.unq.obj3.O3_TP1.materia.estado.Estado
 import ar.edu.unq.obj3.O3_TP1.persona.Estudiante
-import scala.collection.immutable.Range
-import ar.edu.unq.obj3.O3_TP1.persona.Estudiante
-import ar.edu.unq.obj3.O3_TP1.persona.Estudiante
 
 object Estadisticas {
 
 	def cantidadDeAprobadas( estudiante : Estudiante ) : Int = {
-		filtrar( estudiante, ( c => c.estado.equals( Estado.APROBADO ) ) ).size
+		( filtrar( estudiante ) { c => c.estado.equals( Estado.APROBADO ) } ).size
 	}
 
 	def cantidadDeAbandonos( estudiante : Estudiante ) : Int = {
-		filtrar( estudiante, ( c => c.estado.equals( Estado.ABANDONO ) ) ).size
+		( filtrar( estudiante ) { c => c.estado.equals( Estado.ABANDONO ) } ).size
 	}
 
-	def filtrar( estudiante : Estudiante, condicion : Cursada => Boolean ) : Set[Cursada] = {
-		estudiante.cursadas.filter( condicion )
+	def filtrar( estudiante : Estudiante )( condicion : Cursada => Boolean ) : Set[Cursada] = {
+		estudiante.cursadas filter condicion
 	}
 
 	def sumatoria( cursadas : Set[Cursada] ) : Int = {
@@ -32,11 +29,11 @@ object Estadisticas {
 		} ) )
 	}
 	def aprobadas( estudiante : Estudiante ) : Set[Cursada] = {
-		filtrar( estudiante, ( c => c.estado.equals( Estado.APROBADO ) ) )
+		filtrar( estudiante ) { c => c.estado.equals( Estado.APROBADO ) }
 	}
 
 	def conAplazos( estudiante : Estudiante ) : Set[Cursada] = {
-		filtrar( estudiante, ( c => !c.estado.equals( Estado.ABANDONO ) ) )
+		filtrar( estudiante ) { c => !c.estado.equals( Estado.ABANDONO ) }
 	}
 
 	def promedioSinAplazos( estudiante : Estudiante ) : Float = {
@@ -53,19 +50,21 @@ object Estadisticas {
 	}
 
 	def cuantos( estudiante : Estudiante, nota : Int ) : Int = {
-		val enNota = filtrar( estudiante, ( c => {
+		val enNota = filtrar( estudiante )( ( c => {
 			c.nota match {
 				case None => false
 				case Some( n ) => n == nota
 			}
 		} ) )
-		enNota.foldRight( 0 )( ( _, a ) => a + 1 )
+		enNota.foldRight( 0 ) { ( c, ac ) => ac + 1 }
 	}
 
 	def notas( estudiante : Estudiante ) : Map[Int, Int] = {
 		val ret : Map[Int, Int] = Map()
-		Range( 1, 10 ).foreach( ( index =>
-			ret.+=( ( index, cuantos( estudiante, index ) ) ) ) )
+		Range( 1, 10 ) foreach {
+			index =>
+				ret.+=( ( index, cuantos( estudiante, index ) ) )
+		}
 		return ret
 	}
 
