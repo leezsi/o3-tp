@@ -6,25 +6,25 @@
 		<version>1.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>ar.edu.unq.obj3</groupId>
+	<!-- <groupId>ar.edu.unq.obj3</groupId> -->
 	<artifactId>O3-TP1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<inceptionYear>2013</inceptionYear>
-	
-	
+
+
 	<properties>
 		<scala.version>2.10.2</scala.version>
 		<junit.version>4.11</junit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-<!-- 	<repositories> -->
-<!-- 		<repository> -->
-<!-- 			<id>scala-tools.org</id> -->
-<!-- 			<name>Scala-Tools Maven2 Repository</name> -->
-<!-- 			<url>http://scala-tools.org/repo-releases</url> -->
-<!-- 		</repository> -->
-<!-- 	</repositories> -->
+	<!-- <repositories> -->
+	<!-- <repository> -->
+	<!-- <id>scala-tools.org</id> -->
+	<!-- <name>Scala-Tools Maven2 Repository</name> -->
+	<!-- <url>http://scala-tools.org/repo-releases</url> -->
+	<!-- </repository> -->
+	<!-- </repositories> -->
 
 	<pluginRepositories>
 		<pluginRepository>
@@ -46,18 +46,18 @@
 			<version>${scala.version}</version>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>junit</groupId> -->
-<!-- 			<artifactId>junit</artifactId> -->
-<!-- 			<version>${junit.version}</version> -->
-<!-- 			<scope>test</scope> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.specs</groupId> -->
-<!-- 			<artifactId>specs</artifactId> -->
-<!-- 			<version>1.2.5</version> -->
-<!-- 			<scope>test</scope> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>junit</groupId> -->
+		<!-- <artifactId>junit</artifactId> -->
+		<!-- <version>${junit.version}</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.specs</groupId> -->
+		<!-- <artifactId>specs</artifactId> -->
+		<!-- <version>1.2.5</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.scalatest</groupId>
 			<artifactId>scalatest_2.10</artifactId>
@@ -73,7 +73,7 @@
 	</dependencies>
 
 	<build>
-	
+
 		<sourceDirectory>src/main/scala</sourceDirectory>
 		<testSourceDirectory>src/test/scala</testSourceDirectory>
 		<pluginManagement>
