@@ -61,7 +61,7 @@ object Estadisticas {
 
 	def notas( estudiante : Estudiante ) : Map[Int, Int] = {
 		val ret : Map[Int, Int] = Map()
-		Range( 1, 10 ) foreach {
+		( 1 to 10 ) foreach {
 			index =>
 				ret.+=( ( index, cuantos( estudiante, index ) ) )
 		}

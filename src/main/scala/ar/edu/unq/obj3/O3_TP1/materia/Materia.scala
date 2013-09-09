@@ -11,7 +11,7 @@ class Materia( val nombre : String ) {
 
 	def crearCurso( cuatrimestre : Cuatrimestre, profesores : Profesor* ) : Curso = {
 		val curso : Curso = new Curso( this, cuatrimestre, profesores : _* )
-		cursos.+=( curso )
+		cursos += curso
 		return curso
 	}
 }

@@ -55,7 +55,7 @@ case class Proyecto( override val nombre : String, override val costo : Int, ove
 		articulos.foldRight( m )( ( a, m ) => { m += a; m } )
 	}
 	def agregarResultado( descripcion : String, fecha : Date ) {
-		resultados += ( ( descripcion, fecha ) )
+		resultados( descripcion ) = fecha
 	}
 
 	def agregarEnBitacora( fecha : Date, horaDesde : Int, horaFin : Int, descripcion : String ) {
