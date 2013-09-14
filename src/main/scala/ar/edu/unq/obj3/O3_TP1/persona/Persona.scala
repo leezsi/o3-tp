@@ -24,6 +24,6 @@ case class Estudiante( nombre : String, carrera : Carrera ) extends Persona( nom
 
 	def anotarEn( curso : Curso ) = cursadas += Cursada( this, curso )
 
-	def definirNota( curso : Curso, nota : Option[Int] ) =
+	def definirNota( curso : Curso, nota : Option[Float] ) =
 		cursadas.find( _.curso == curso ).get.terminar( nota )
 }

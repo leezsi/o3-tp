@@ -5,67 +5,64 @@ import scala.collection.mutable.Map
 import ar.edu.unq.obj3.O3_TP1.materia.curso.Cursada
 import ar.edu.unq.obj3.O3_TP1.materia.estado.Estado
 import ar.edu.unq.obj3.O3_TP1.persona.Estudiante
+import ar.edu.unq.obj3.O3_TP1.materia.curso.Cursada
 
 object Estadisticas {
 
 	def cantidadDeAprobadas( estudiante : Estudiante ) : Int = {
-		( filtrar( estudiante ) { c => c.estado.equals( Estado.APROBADO ) } ).size
+		( estudiante.cursadas filter { ( c : Cursada ) => c.aprobada } ).size
 	}
 
 	def cantidadDeAbandonos( estudiante : Estudiante ) : Int = {
-		( filtrar( estudiante ) { c => c.estado.equals( Estado.ABANDONO ) } ).size
-	}
-
-	def filtrar( estudiante : Estudiante )( condicion : Cursada => Boolean ) : Set[Cursada] = {
-		estudiante.cursadas filter condicion
-	}
-
-	def sumatoria( cursadas : Set[Cursada] ) : Int = {
-		cursadas.foldRight( 0 )( ( ( c, a ) => {
-			c.nota match {
-				case None => a
-				case Some( n ) => a + n
-			}
-		} ) )
-	}
-	def aprobadas( estudiante : Estudiante ) : Set[Cursada] = {
-		filtrar( estudiante ) { c => c.estado.equals( Estado.APROBADO ) }
-	}
-
-	def conAplazos( estudiante : Estudiante ) : Set[Cursada] = {
-		filtrar( estudiante ) { c => !c.estado.equals( Estado.ABANDONO ) }
+		( estudiante.cursadas filter { ( c : Cursada ) => c.abandonada } ).size
 	}
 
 	def promedioSinAplazos( estudiante : Estudiante ) : Float = {
-		val _aprobadas : Set[Cursada] = aprobadas( estudiante )
-		sumatoria( _aprobadas ) / _aprobadas.size
+		val notas = estudiante.cursadas collect { case c : Cursada if c.aprobada => c.nota.get }
+		notas.sum / notas.size
 	}
+
 	def promedioConAplazos( estudiante : Estudiante ) : Float = {
-		val cursadas : Set[Cursada] = conAplazos( estudiante )
-		sumatoria( cursadas ) / cursadas.size
+		val notas = estudiante.cursadas collect { case c : Cursada if !c.abandonada => c.nota.get }
+		notas.sum / notas.size
 	}
 
 	def aprobadosSobreIniciados( estudiante : Estudiante ) : Float = {
-		cantidadDeAprobadas( estudiante ) * 100 / estudiante.cursadas.size
+		( cantidadDeAprobadas( estudiante ) * 100 ) / estudiante.cursadas.size
 	}
 
-	def cuantos( estudiante : Estudiante, nota : Int ) : Int = {
-		val enNota = filtrar( estudiante )( ( c => {
-			c.nota match {
-				case None => false
-				case Some( n ) => n == nota
-			}
-		} ) )
-		enNota.foldRight( 0 ) { ( c, ac ) => ac + 1 }
+	def cuantos( estudiante : Estudiante, nota : Float ) : Int = {
+		( estudiante.cursadas collect { case c : Cursada if c.nota == Some( nota ) => 1 } ).size
 	}
 
 	def notas( estudiante : Estudiante ) : Map[Int, Int] = {
-		val ret : Map[Int, Int] = Map()
+		val ret = Map[Int, Int]()
 		( 1 to 10 ) foreach {
-			index =>
-				ret.+=( ( index, cuantos( estudiante, index ) ) )
+			index => ret( index ) = cuantos( estudiante, index )
 		}
 		return ret
+	}
+
+	def alcazadoN( estudiante : Estudiante, n : Int ) : Option[Float] = {
+		val notas = Map[Int, Int]( ( 1 -> 0 ), ( 2 -> 0 ), ( 3 -> 0 ), ( 4 -> 0 ), ( 5 -> 0 ), ( 6 -> 0 ), ( 7 -> 0 ), ( 8 -> 0 ), ( 9 -> 0 ), ( 10 -> 0 ) )
+		var cantidad = 0
+		1 to 10 foreach {
+			nota =>
+				cantidad = cuantos( estudiante, int2float( nota ) )
+				if ( cantidad > 0 )
+					1 to nota foreach {
+						i =>
+							notas( i ) = notas( i ) + cantidad
+					}
+		}
+		maximo( notas, n )
+	}
+
+	def maximo( notas : Map[Int, Int], n : Int ) : Option[Float] = {
+		( 10 to 1 ) foreach {
+			i => if ( notas( i ) >= n ) return Some( i )
+		}
+		None
 	}
 
 }

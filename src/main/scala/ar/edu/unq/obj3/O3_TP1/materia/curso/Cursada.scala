@@ -7,16 +7,29 @@ import ar.edu.unq.obj3.O3_TP1.persona.Estudiante
 
 case class Cursada( val estudiante : Estudiante, val curso : Curso ) {
 
-	var nota : Option[Int] = None
+	var nota : Option[Float] = None
 	var estado : Estado = Estado.ABANDONO
 
-	def terminar( nota : Option[Int] ) {
+	def terminar( nota : Option[Float] ) {
 		estado = calcularEstado( nota )
 	}
 
-	def calcularEstado( n : Option[Int] ) : Estado = n match {
+	def calcularEstado( n : Option[Float] ) : Estado = n match {
 		case None => Estado.ABANDONO
 		case Some( n1 ) if n1 <= 3 ⇒ Estado.DESAPROBADO
 		case _ => Estado.APROBADO
+	}
+
+	def abandonada = this.estado match {
+		case Estado.ABANDONO => true
+		case _ => false
+	}
+	def aprobada = this.estado match {
+		case Estado.APROBADO => true
+		case _ => false
+	}
+	def aplazada = this.estado match {
+		case Estado.DESAPROBADO => true
+		case _ => false
 	}
 }
