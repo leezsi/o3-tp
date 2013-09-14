@@ -31,38 +31,41 @@ object Estadisticas {
 		( cantidadDeAprobadas( estudiante ) * 100 ) / estudiante.cursadas.size
 	}
 
-	def cuantos( estudiante : Estudiante, nota : Float ) : Int = {
+	private def cuantos( estudiante : Estudiante, nota : Float ) : Int = {
 		( estudiante.cursadas collect { case c : Cursada if c.nota == Some( nota ) => 1 } ).size
 	}
 
-	def notas( estudiante : Estudiante ) : Map[Int, Int] = {
-		val ret = Map[Int, Int]()
-		( 1 to 10 ) foreach {
-			index => ret( index ) = cuantos( estudiante, index )
+	private def sumarNHastaJ( notas : Map[Int, Int], n : Int, j : Int ) {
+		1 to j foreach {
+			i => notas( i ) = notas( i ) + n
 		}
-		return ret
+	}
+
+	private def alcanzadoNVeces( notas : Map[Int, Int], n : Int ) : Option[Float] = {
+		var maxima : Option[Float] = None
+		1 to 10 foreach {
+			i =>
+				if ( notas( i ) >= n ) {
+					maxima = Some( i )
+				}
+		}
+		return maxima
 	}
 
 	def alcazadoN( estudiante : Estudiante, n : Int ) : Option[Float] = {
 		val notas = Map[Int, Int]( ( 1 -> 0 ), ( 2 -> 0 ), ( 3 -> 0 ), ( 4 -> 0 ), ( 5 -> 0 ), ( 6 -> 0 ), ( 7 -> 0 ), ( 8 -> 0 ), ( 9 -> 0 ), ( 10 -> 0 ) )
 		var cantidad = 0
 		1 to 10 foreach {
-			nota =>
-				cantidad = cuantos( estudiante, int2float( nota ) )
-				if ( cantidad > 0 )
-					1 to nota foreach {
-						i =>
-							notas( i ) = notas( i ) + cantidad
-					}
+			nota => sumarNHastaJ( notas, cuantos( estudiante, nota ), nota )
 		}
-		maximo( notas, n )
+		alcanzadoNVeces( notas, n )
 	}
-
-	def maximo( notas : Map[Int, Int], n : Int ) : Option[Float] = {
-		( 10 to 1 ) foreach {
-			i => if ( notas( i ) >= n ) return Some( i )
+	def notas( estudiante : Estudiante ) : Map[Int, Int] = {
+		val ret = Map[Int, Int]()
+		( 1 to 10 ) foreach {
+			index => ret( index ) = cuantos( estudiante, index )
 		}
-		None
+		return ret
 	}
 
 }

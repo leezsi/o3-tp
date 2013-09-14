@@ -102,7 +102,7 @@ class ExampleSpec extends FlatSpec with BeforeAndAfterEach with MockitoSugarExte
 	it should "dar cantidad de cursadas abandonadas" in {
 
 		estudiante.cursadas --> cursadasPromedio
-		assert( Estadisticas.cantidadDeAprobadas( estudiante ) === 1 )
+		assert( Estadisticas.cantidadDeAbandonos( estudiante ) === 1 )
 	}
 
 	it should "dar porcentaje de cursos aprobados sobre cursos iniciados" in {
@@ -119,7 +119,8 @@ class ExampleSpec extends FlatSpec with BeforeAndAfterEach with MockitoSugarExte
 	it should "cual es la nota mas alta a la que llego" in {
 		val notas = Map[Int, Int]( ( 1 -> 1 ), ( 2 -> 0 ), ( 3 -> 0 ), ( 4 -> 0 ), ( 5 -> 0 ), ( 6 -> 0 ), ( 7 -> 1 ), ( 8 -> 1 ), ( 9 -> 1 ), ( 10 -> 0 ) )
 		estudiante.cursadas --> cursadasPromedio
-		assert( Estadisticas.alcazadoN( estudiante, 3 ) === 7 )
+		assert( Estadisticas.alcazadoN( estudiante, 3 ) === Some( 7 ) )
+
 	}
 
 }
