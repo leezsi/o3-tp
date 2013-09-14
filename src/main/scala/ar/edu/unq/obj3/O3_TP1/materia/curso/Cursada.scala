@@ -11,13 +11,11 @@ case class Cursada( val estudiante : Estudiante, val curso : Curso ) {
 	var estado : Estado = Estado.ABANDONO
 
 	def terminar( nota : Option[Float] ) {
-		estado = calcularEstado( nota )
-	}
-
-	def calcularEstado( n : Option[Float] ) : Estado = n match {
-		case None => Estado.ABANDONO
-		case Some( n1 ) if n1 <= 3 ⇒ Estado.DESAPROBADO
-		case _ => Estado.APROBADO
+		estado = nota match {
+			case None => Estado.ABANDONO
+			case Some( n1 ) if n1 <= 3 ⇒ Estado.DESAPROBADO
+			case _ => Estado.APROBADO
+		}
 	}
 
 	def abandonada = this.estado match {

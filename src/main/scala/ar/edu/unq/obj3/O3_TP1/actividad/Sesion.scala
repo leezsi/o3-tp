@@ -1,6 +1,7 @@
 package ar.edu.unq.obj3.O3_TP1.actividad
 
 import java.util.Date
+import ar.edu.unq.obj3.O3_TP1.grupos.Agenda
 
 class Sesion( val fecha : Date, val horaInicio : Int, val horaFin : Int, val seminario : Seminario ) {
 
