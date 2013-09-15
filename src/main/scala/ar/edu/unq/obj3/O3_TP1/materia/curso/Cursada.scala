@@ -6,6 +6,7 @@ import com.sun.xml.internal.bind.v2.model.core.MaybeElement
 import ar.edu.unq.obj3.O3_TP1.persona.Estudiante
 
 case class Cursada( val estudiante : Estudiante, val curso : Curso ) {
+	curso.agregarCursada( this )
 
 	var nota : Option[Float] = None
 	var estado : Estado = Estado.ABANDONO
