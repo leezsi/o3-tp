@@ -58,8 +58,10 @@ case class Proyecto( override val nombre : String, override val costo : Int, ove
 	def agregarResultado( descripcion : String, fecha : Date ) =
 		resultados( descripcion ) = fecha
 
-	def agregarExperimentoEnBitacora( fecha : Date, horaDesde : Int, horaFin : Int, descripcion : String ) {
-		bitacora += ( new Experimento( fecha, horaDesde, horaFin, descripcion ) )
+	def agregarExperimentoEnBitacora( fecha : Date, horaDesde : Int, horaFin : Int, descripcion : String ) : Experimento = {
+		val experimento = new Experimento( fecha, horaDesde, horaFin, descripcion )
+		bitacora += experimento
+		return experimento
 	}
 	override def agregarEnAgenda( agenda : Agenda ) = {
 		this.bitacora foreach { experimento =>

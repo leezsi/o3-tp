@@ -12,10 +12,16 @@ class ProyectoTest extends FlatSpec with BeforeAndAfterEach with MockitoSugarExt
 	var responsable, p1, p2, p3 : Persona = _
 
 	override def beforeEach() {
-		proyecto = Proyecto( "proyecto", 100, "20/05/2013".toDate( "dd/MM/yyyy" ), responsable, p1, p2, p3 )
+		proyecto = Proyecto( "proyecto", 100, "20/05/2013".toDate(), responsable, p1, p2, p3 )
 	}
 
 	"Proyecto" should "agregar experimento en bitacora" in {
-		assert( 1 === 1 )
+
+		val experimento = Set[Experimento](
+			proyecto.agregarExperimentoEnBitacora( "10/10/2013".toDate(), 10, 11, "experimento de prueba" ),
+			proyecto.agregarExperimentoEnBitacora( "10/10/2013".toDate(), 10, 11, "experimento de prueba" ),
+			proyecto.agregarExperimentoEnBitacora( "10/10/2013".toDate(), 10, 11, "experimento de prueba" ) )
+		assert( proyecto.bitacora.size === 3 )
+		assert( experimento === proyecto.bitacora )
 	}
 }
