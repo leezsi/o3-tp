@@ -22,7 +22,7 @@ object GrupoConsultas {
 
 	def agenda( persona : Persona ) : Agenda = {
 		val agenda = Agenda()
-		val actividades = ( persona.grupos collect { case g : GrupoDeInvestigacion => g.actividades } ).reduce { ( a1, a2 ) => a1 ++= a2 }
+		val actividades = ( persona.grupos collect { case g : GrupoDeInvestigacion => g.actividades } ).reduce { ( a1, a2 ) => a1 ++ a2 }
 		actividades.foreach { actividad =>
 			actividad.agregarEnAgenda( agenda )
 		}

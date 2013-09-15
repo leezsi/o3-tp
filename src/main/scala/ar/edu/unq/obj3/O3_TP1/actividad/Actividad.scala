@@ -13,10 +13,8 @@ abstract class Actividad( val nombre : String,
 		val otros : Persona* ) {
 
 	var fechaAprobacion : Date = null
-	var integrantes : Set[Persona] = Set()
 
-	integrantes += responsable
-	integrantes ++= otros
+	def integrantes = ( Set[Persona]( responsable ) ++= otros )
 
 	def agregarEnAgenda( agenda : Agenda )
 

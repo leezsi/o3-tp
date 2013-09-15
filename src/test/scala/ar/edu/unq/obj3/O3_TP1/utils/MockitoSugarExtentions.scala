@@ -4,8 +4,9 @@ import org.scalatest.mock.MockitoSugar
 import org.mockito.stubbing.OngoingStubbing
 import org.mockito.Mockito
 import org.mockito.Mockito.{ mock => mockitoMock }
+import scala.collection.mutable.Map
 
-trait MockitoSugarExtentions { //}extends MockitoSugar {
+trait MockitoSugarExtentions {
 
 	case class OngoingStubbingWrapper[L]( left : L ) {
 
@@ -14,7 +15,7 @@ trait MockitoSugarExtentions { //}extends MockitoSugar {
 
 		}
 
-		def real() : OngoingStubbing[L] = {
+		def *() : OngoingStubbing[L] = {
 			Mockito.when( left ).thenCallRealMethod()
 		}
 
@@ -22,12 +23,14 @@ trait MockitoSugarExtentions { //}extends MockitoSugar {
 
 	implicit def convertToOngoingStubbingWrapper[L]( any : L ) : OngoingStubbingWrapper[L] = OngoingStubbingWrapper( any )
 
+	//assign return method for an specific one
 	implicit def -->[L]( ret : L )( implicit wr : OngoingStubbingWrapper[L] ) : OngoingStubbing[L] = {
 		wr --> ret
 	}
 
-	implicit def real[L]( implicit wr : OngoingStubbingWrapper[L] ) : OngoingStubbing[L] = {
-		wr.real
+	//Unstub a method
+	implicit def *[L]( implicit wr : OngoingStubbingWrapper[L] ) : OngoingStubbing[L] = {
+		wr.*
 	}
 
 	def <--[L <: AnyRef]( implicit manifest : Manifest[L] ) : L = {
@@ -35,4 +38,3 @@ trait MockitoSugarExtentions { //}extends MockitoSugar {
 	}
 
 }
-
