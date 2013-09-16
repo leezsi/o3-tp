@@ -16,6 +16,7 @@ class Materia( val nombre : String ) extends Cursable {
 		cursos += curso
 		return curso
 	}
+
 	def agregarCursada( cursada : Cursada ) {
 		this.cursadas += cursada
 	}

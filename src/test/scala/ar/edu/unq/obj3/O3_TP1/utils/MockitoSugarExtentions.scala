@@ -19,6 +19,10 @@ trait MockitoSugarExtentions {
 			Mockito.when( left ).thenCallRealMethod()
 		}
 
+		def verify[OngoingStubbing[L]]() : L = {
+			Mockito.verify( left )
+		}
+
 	}
 
 	implicit def convertToOngoingStubbingWrapper[L]( any : L ) : OngoingStubbingWrapper[L] = OngoingStubbingWrapper( any )

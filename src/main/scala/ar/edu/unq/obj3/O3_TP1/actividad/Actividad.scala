@@ -52,9 +52,6 @@ case class Proyecto( override val nombre : String, override val costo : Int, ove
 		resultados.filter( { case ( r, s ) => r contains "articulo" } )
 	}
 
-	def agregarArticulos( m : Map[String, Date] ) : Map[String, Date] = {
-		articulos.foldRight( m )( ( a, m ) => { m += a; m } )
-	}
 	def agregarResultado( descripcion : String, fecha : Date ) =
 		resultados( descripcion ) = fecha
 
