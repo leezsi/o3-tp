@@ -2,11 +2,9 @@ package ar.edu.unq.obj3.O3_TP1.materia.curso
 
 import ar.edu.unq.obj3.O3_TP1.materia.Materia
 import ar.edu.unq.obj3.O3_TP1.persona.Profesor
-import ar.edu.unq.obj3.O3_TP1.materia.Cuatrimestre._
-import scala.collection.mutable.Set
-import ar.edu.unq.obj3.O3_TP1.materia.estadisticas.Cursable
+import ar.edu.unq.obj3.O3_TP1.materia.Cuatrimestre
 
-case class Curso( val materia : Materia, val cuatrimestre : Cuatrimestre, val profesores : Profesor* ) extends Cursable {
+case class Curso( val materia : Materia, val anio : Int, val dia : Int, val cuatrimestre : Cuatrimestre, val profesores : Profesor* ) extends Cursable {
 
 	def agregarCursada( cursada : Cursada ) {
 		this.cursadas += cursada
@@ -14,5 +12,9 @@ case class Curso( val materia : Materia, val cuatrimestre : Cuatrimestre, val pr
 			profesor.cursadas += cursada
 		}
 		materia.agregarCursada( cursada )
+	}
+
+	def esDelAnio( anio : Int ) : Boolean = {
+		this.anio == anio
 	}
 }

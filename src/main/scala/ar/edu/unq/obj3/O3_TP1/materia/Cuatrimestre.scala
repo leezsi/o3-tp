@@ -1,7 +1,14 @@
 package ar.edu.unq.obj3.O3_TP1.materia
 
-object Cuatrimestre extends Enumeration {
+import java.util.Date
 
-	type Cuatrimestre = Value
+object CualCuatrimestre extends Enumeration {
+
+	type CuatrimestreNombre = Value
 	val PRIMERO, SEGUNDO = Value
+
+}
+
+case class Cuatrimestre( val fechaInicio : Date, val fechaFin : Date ) {
+
 }

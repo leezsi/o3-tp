@@ -12,6 +12,8 @@ import ar.edu.unq.obj3.O3_TP1.utils.CursadaMocks
 import ar.edu.unq.obj3.O3_TP1.materia.curso.Curso
 import ar.edu.unq.obj3.O3_TP1.persona.Profesor
 import ar.edu.unq.obj3.O3_TP1.materia.Materia
+import ar.edu.unq.obj3.O3_TP1.carrera.Carrera
+import ar.edu.unq.obj3.O3_TP1.materia.curso.Curso
 
 class CursableTest extends FlatSpec with BeforeAndAfterEach with CursadaMocks with MockitoSugarExtentions {
 	val cursadasPromedio = Set[Cursada](
@@ -50,4 +52,5 @@ class CursableTest extends FlatSpec with BeforeAndAfterEach with CursadaMocks wi
 		materia.promedioSinAplazos.*()
 		assert( materia.promedioSinAplazos === 8 )
 	}
+
 }

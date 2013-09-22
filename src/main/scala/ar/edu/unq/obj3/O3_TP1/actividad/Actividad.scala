@@ -5,6 +5,7 @@ import scala.collection.mutable.Set
 import scala.collection.mutable.Map
 import java.util.Date
 import ar.edu.unq.obj3.O3_TP1.grupos.Agenda
+import ar.edu.unq.obj3.O3_TP1.aula.Asignable
 
 abstract class Actividad( val nombre : String,
 		val costo : Int,
@@ -19,8 +20,9 @@ abstract class Actividad( val nombre : String,
 	def agregarEnAgenda( agenda : Agenda )
 
 }
-case class Seminario( override val nombre : String, override val costo : Int, override val fechaPresentacion : Date, override val responsable : Persona, override val otros : Persona* )
-		extends Actividad( nombre, costo, fechaPresentacion, responsable, otros : _* ) {
+case class Seminario( override val nombre : String, override val costo : Int, override val fechaPresentacion : Date, override val responsable : Persona, val recursos : Set[String], override val otros : Persona* )
+		extends Actividad( nombre, costo, fechaPresentacion, responsable, otros : _* )
+		with Asignable {
 
 	val sesiones : Set[Sesion] = Set()
 
@@ -35,8 +37,9 @@ case class Seminario( override val nombre : String, override val costo : Int, ov
 	}
 
 }
-case class Charla( override val nombre : String, val fecha : Date, val horaInicio : Int, val horaFin : Int, val publico : Int, override val costo : Int, override val fechaPresentacion : Date, override val responsable : Persona, override val otros : Persona* )
-		extends Actividad( nombre, costo, fechaPresentacion, responsable, otros : _* ) {
+case class Charla( override val nombre : String, val fecha : Date, val horaInicio : Int, val horaFin : Int, val publico : Int, override val costo : Int, override val fechaPresentacion : Date, override val responsable : Persona, val recursos : Set[String], override val otros : Persona* )
+		extends Actividad( nombre, costo, fechaPresentacion, responsable, otros : _* )
+		with Asignable {
 	override def agregarEnAgenda( agenda : Agenda ) = {
 		agenda.agregarEntrada( this.fecha, this.horaInicio, this.horaFin, this.nombre )
 	}

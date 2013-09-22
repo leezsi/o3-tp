@@ -1,15 +1,20 @@
 package ar.edu.unq.obj3.O3_TP1.actividad
 
-import ar.edu.unq.obj3.O3_TP1.utils.MockitoSugarExtentions
-import org.scalatest.BeforeAndAfterEach
-import org.scalatest.FlatSpec
-import ar.edu.unq.obj3.O3_TP1.utils.DateSugar
-import ar.edu.unq.obj3.O3_TP1.persona.Persona
-import ar.edu.unq.obj3.O3_TP1.grupos.Agenda
 import java.util.Date
-import scala.collection.mutable.{ Map }
 
-class ProyectoTest extends FlatSpec with BeforeAndAfterEach with MockitoSugarExtentions with DateSugar {
+import scala.collection.mutable.Map
+import scala.collection.mutable.Set
+
+import org.scalatest.BeforeAndAfterEach
+import org.scalatest.Finders
+import org.scalatest.FlatSpec
+
+import ar.edu.unq.obj3.O3_TP1.grupos.Agenda
+import ar.edu.unq.obj3.O3_TP1.persona.Persona
+import ar.edu.unq.obj3.O3_TP1.utils.DateSugar
+import ar.edu.unq.obj3.O3_TP1.utils.MockitoSugarExtentions
+
+class ActividadTest extends FlatSpec with BeforeAndAfterEach with MockitoSugarExtentions with DateSugar {
 
 	var proyecto : Proyecto = _
 	var responsable, p1, p2, p3 : Persona = _
@@ -59,7 +64,8 @@ class SeminarioTest extends FlatSpec with BeforeAndAfterEach with MockitoSugarEx
 	val fecha3 = "10/12/2013".toDate()
 
 	override def beforeEach() {
-		seminario = Seminario( "Seminario", 100, fecha1, responsable, p1, p2, p3 )
+		val recursos = Set[String]()
+		seminario = Seminario( "Seminario", 100, fecha1, responsable, recursos, p1, p2, p3 )
 	}
 
 	"Seminario" should "agregar en agenda" in {

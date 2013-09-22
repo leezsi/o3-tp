@@ -60,6 +60,7 @@ object Estadisticas {
 		}
 		alcanzadoNVeces( notas, n )
 	}
+
 	def notas( estudiante : Estudiante ) : Map[Int, Int] = {
 		val ret = Map[Int, Int]()
 		( 1 to 10 ) foreach {
